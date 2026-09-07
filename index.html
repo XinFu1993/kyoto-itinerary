@@ -218,53 +218,6 @@ body {
   font-size: 0.7rem;
   color: var(--muted);
 }
-.budget-box {
-  margin: 10px 2px 0;
-  border: 1.5px solid var(--line);
-  border-radius: 14px;
-  background: var(--card);
-  text-align: left;
-}
-.budget-box > summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 12px 14px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--ink);
-  -webkit-tap-highlight-color: transparent;
-}
-.budget-box > summary::-webkit-details-marker { display: none; }
-.budget-box-body {
-  padding: 0 14px 12px;
-  border-top: 1px dashed var(--line);
-}
-.budget-box-body p {
-  margin: 8px 0 0;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-.budget-total {
-  margin: 10px 0 0;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-.budget-list {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-}
-.budget-list li {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 4px 0;
-  font-size: 0.84rem;
-  color: var(--ink);
-  border-bottom: 1px dotted var(--line);
-}
-.budget-list li:last-child { border-bottom: 0; }
 .return-checklist {
   margin: 0 2px 14px;
   padding: 12px 14px;
@@ -619,22 +572,6 @@ summary::-webkit-details-marker { display: none; }
     <div class="ledger-entry">
       <a class="ledger-btn" href="https://app.lightsplit.com/g/weYYTxHfVBykxisafQ7p1m" target="_blank" rel="noopener noreferrer">開啟 Lightsplit 分帳</a>
     </div>
-    <details class="budget-box">
-      <summary>預算摘要（對照 Lightsplit）</summary>
-      <div class="budget-box-body">
-        <p class="budget-total">總預算（整團參考）：¥100,000</p>
-        <ul class="budget-list">
-          <li><span>D1 12/20</span><span>¥14,000</span></li>
-          <li><span>D2 12/21</span><span>¥14,000</span></li>
-          <li><span>D3 12/22</span><span>¥14,000</span></li>
-          <li><span>D4 12/23</span><span>¥14,000</span></li>
-          <li><span>D5 12/24</span><span>¥14,000</span></li>
-          <li><span>D6 12/25</span><span>¥14,000</span></li>
-          <li><span>D7 12/26</span><span>¥14,000</span></li>
-        </ul>
-        <p>實支請用上方 Lightsplit；此表僅預算參考</p>
-      </div>
-    </details>
     <div class="overview-wrap">
       <img class="overview-img" src="overview.png" alt="京都 7天6夜旅遊行程總覽" width="1200" height="1600">
     </div>
