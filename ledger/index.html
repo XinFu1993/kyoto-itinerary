@@ -2235,7 +2235,7 @@
                             rows.value = [{id: 'row_1', col_1: translate('Text'), col_2: 100, col_3: 1, note: '', isExpanded: false}]
                             isChartOpen.value = true
                         } else {
-                            rows.value = [{id: 'row_1', col_1: '', col_2: 0, col_3: 0, note: '', isExpanded: false}]
+                            rows.value = [{id: 'row_1', col_1: '', col_2: 0, col_3: 1, note: '', isExpanded: false}]
                         }
                         colCount.value = columns.value.length
                     }
@@ -2414,7 +2414,16 @@
                         if (col.type === 'date') newRow[col.id] = todayDate
                         else if (col.type === 'time') newRow[col.id] = currentTime
                         else if (col.type === 'photo') newRow[col.id] = []
-                        else if (!col.type?.startsWith('multiply') && !col.type?.startsWith('minus')) newRow[col.id] = col.type === 'number' ? null : ''
+                        else if (!col.type?.startsWith('multiply') && !col.type?.startsWith('minus')) {
+                            if (col.type === 'number') {
+                                const label = String(col.label || '').toLowerCase()
+                                const qtyKeywords = ['quantity', 'qty', String(translate('Quantity') || '').toLowerCase(), '數量']
+                                const isQty = qtyKeywords.some(kw => kw && label.includes(kw.toLowerCase()))
+                                newRow[col.id] = isQty ? 1 : null
+                            } else {
+                                newRow[col.id] = ''
+                            }
+                        }
                     })
 
                     Object.keys(columnFilters.value).forEach(key => columnFilters.value[key] = '')
