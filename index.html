@@ -563,10 +563,12 @@ summary::-webkit-details-marker { display: none; }
     + '&end_date=' + encodeURIComponent(end);
 
   fetch(url).then(function (res) {
-    if (!res.ok) throw new Error('bad status');
-    return res.json();
-  }).then(function (data) {
-    if (!data || !data.daily || !data.daily.time) {
+    return res.json().then(function (data) {
+      return { ok: res.ok, data: data };
+    });
+  }).then(function (payload) {
+    var data = payload && payload.data;
+    if (!payload.ok || !data || data.error || !data.daily || !data.daily.time) {
       setAll('預報尚未開放');
       return;
     }
