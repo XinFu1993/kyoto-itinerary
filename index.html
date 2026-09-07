@@ -218,6 +218,120 @@ body {
   font-size: 0.7rem;
   color: var(--muted);
 }
+.budget-box {
+  margin: 10px 2px 0;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  text-align: left;
+}
+.budget-box > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+.budget-box > summary::-webkit-details-marker { display: none; }
+.budget-box-body {
+  padding: 0 14px 12px;
+  border-top: 1px dashed var(--line);
+}
+.budget-box-body p {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.budget-total {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.budget-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.budget-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 0.84rem;
+  color: var(--ink);
+  border-bottom: 1px dotted var(--line);
+}
+.budget-list li:last-child { border-bottom: 0; }
+.return-checklist {
+  margin: 0 2px 14px;
+  padding: 12px 14px;
+  border: 1.5px solid color-mix(in srgb, var(--day-7) 55%, var(--line));
+  border-left: 4px solid var(--day-7);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--day-7) 10%, var(--card));
+}
+.return-checklist h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.return-checklist-note {
+  margin: 4px 0 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.return-checklist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.return-checklist li {
+  margin: 0;
+}
+.return-checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 0;
+  border-bottom: 1px dotted color-mix(in srgb, var(--day-7) 35%, var(--line));
+  font-size: 0.86rem;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+.return-checklist li:last-child label { border-bottom: 0; }
+.return-checklist input[type="checkbox"] {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+.offline-tips {
+  margin-top: 10px;
+  border-top: 1px dashed var(--line);
+  padding-top: 8px;
+}
+.offline-tips > summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.offline-tips > summary::-webkit-details-marker { display: none; }
+.offline-tips-body {
+  margin-top: 6px;
+}
+.offline-tips-body p {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.offline-tips-body p:last-child { margin-bottom: 0; }
+
 .timeline {
   list-style: none;
   margin: 0;
@@ -505,6 +619,22 @@ summary::-webkit-details-marker { display: none; }
     <div class="ledger-entry">
       <a class="ledger-btn" href="https://app.lightsplit.com/g/weYYTxHfVBykxisafQ7p1m" target="_blank" rel="noopener noreferrer">開啟 Lightsplit 分帳</a>
     </div>
+    <details class="budget-box">
+      <summary>預算摘要（對照 Lightsplit）</summary>
+      <div class="budget-box-body">
+        <p class="budget-total">總預算（整團參考）：¥100,000</p>
+        <ul class="budget-list">
+          <li><span>D1 12/20</span><span>¥14,000</span></li>
+          <li><span>D2 12/21</span><span>¥14,000</span></li>
+          <li><span>D3 12/22</span><span>¥14,000</span></li>
+          <li><span>D4 12/23</span><span>¥14,000</span></li>
+          <li><span>D5 12/24</span><span>¥14,000</span></li>
+          <li><span>D6 12/25</span><span>¥14,000</span></li>
+          <li><span>D7 12/26</span><span>¥14,000</span></li>
+        </ul>
+        <p>實支請用上方 Lightsplit；此表僅預算參考</p>
+      </div>
+    </details>
     <div class="overview-wrap">
       <img class="overview-img" src="overview.png" alt="京都 7天6夜旅遊行程總覽" width="1200" height="1600">
     </div>
@@ -522,7 +652,20 @@ summary::-webkit-details-marker { display: none; }
 【方案 2：一般遊覽】
 • 參觀世界遺產【天龍寺】曹源池庭園借景嵐山。
 • 漫步至【渡月橋】、嵐山公園中之島，打卡【% Arabica 咖啡】。
-• 嵐電嵐山站享受露天足湯（250日圓含毛巾）。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">依是否有預約 KOKORO 彈性調整</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">嵐山渡月橋與天龍寺</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：搭 JR 返回京都車站</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E6%B8%A1%E6%9C%88%E6%A9%8B&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E6%B8%A1%E6%9C%88%E6%A9%8B&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>返回飯店</span></div><h3 class="stop-title">搭 JR 返回京都車站</h3><p class="duration">JR 電車約 16~18 分鐘</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">從嵐山大街步行至「JR 嵯峨嵐山站」，搭乘【JR 山陰本線】直達「京都站」，出站回飯店；今晚是聖誕夜，可逛車站巨大聖誕樹燈飾或在拉麵小路覓食。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">近鐵京都站都城市酒店</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">京都車站聖誕夜景</p></div></details></article></li></ul></section><section id="day-7" class="day-section theme-day-7"><div class="day-heading"><div class="day-heading-text"><p class="day-num">DAY 7</p><p class="day-theme">退房・返程關西機場</p><p class="day-date">12/26 (六)</p></div><div class="day-weather" data-date="2026-09-12" aria-live="polite"><span class="day-weather-loading">天氣載入中</span></div></div><ul class="timeline"><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>睡飽 09:00~10:00 出門</span></div><h3 class="stop-title">退房並寄放行李</h3><p class="duration">飯店大廳退房</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">早上悠閒睡飽起床整理行李，辦理退房並將大件行李直接寄放在【都城市酒店】櫃檯，空手輕鬆出門！</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">省去拉行李的麻煩</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">行李寄放飯店櫃檯</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：京都站周邊吃飯 ＆ 最後採買</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%83%BD%E3%82%B7%E3%83%86%E3%82%A3+%E8%BF%91%E9%89%84%E4%BA%AC%E9%83%BD%E9%A7%85&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%83%BD%E3%82%B7%E3%83%86%E3%82%A3+%E8%BF%91%E9%89%84%E4%BA%AC%E9%83%BD%E9%A7%85&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>車站周邊悠閒漫遊</span></div><h3 class="stop-title">京都站周邊吃飯 ＆ 最後採買</h3><p class="duration">全站區室內連通步行</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">全程位於京都車站周邊【步行 1~3 分鐘圈內】：
+• 嵐電嵐山站享受露天足湯（250日圓含毛巾）。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">依是否有預約 KOKORO 彈性調整</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">嵐山渡月橋與天龍寺</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：搭 JR 返回京都車站</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E6%B8%A1%E6%9C%88%E6%A9%8B&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E6%B8%A1%E6%9C%88%E6%A9%8B&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>返回飯店</span></div><h3 class="stop-title">搭 JR 返回京都車站</h3><p class="duration">JR 電車約 16~18 分鐘</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">從嵐山大街步行至「JR 嵯峨嵐山站」，搭乘【JR 山陰本線】直達「京都站」，出站回飯店；今晚是聖誕夜，可逛車站巨大聖誕樹燈飾或在拉麵小路覓食。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">近鐵京都站都城市酒店</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">京都車站聖誕夜景</p></div></details></article></li></ul></section><section id="day-7" class="day-section theme-day-7"><div class="day-heading"><div class="day-heading-text"><p class="day-num">DAY 7</p><p class="day-theme">退房・返程關西機場</p><p class="day-date">12/26 (六)</p></div><div class="day-weather" data-date="2026-09-12" aria-live="polite"><span class="day-weather-loading">天氣載入中</span></div></div><div class="return-checklist" id="return-checklist">
+  <h3>返程倒推清單</h3>
+  <p class="return-checklist-note">起飛 19:55｜建議約 16:00 搭 HARUKA</p>
+  <ul>
+    <li><label><input type="checkbox" data-check="0">退房並寄放行李（飯店櫃檯）</label></li>
+    <li><label><input type="checkbox" data-check="1">車站周邊採買／用餐結束</label></li>
+    <li><label><input type="checkbox" data-check="2"><strong>15:30～16:00</strong> 回飯店取行李</label></li>
+    <li><label><input type="checkbox" data-check="3">走到 JR 京都站、確認 HARUKA 月台</label></li>
+    <li><label><input type="checkbox" data-check="4"><strong>約 16:00</strong> 搭 HARUKA 往 KIX（約 75～80 分）</label></li>
+    <li><label><input type="checkbox" data-check="5"><strong>約 17:20</strong> 抵機場 → 報到／託運</label></li>
+    <li><label><input type="checkbox" data-check="6">出境安檢＋免稅（預留緩衝）</label></li>
+    <li><label><input type="checkbox" data-check="7"><strong>19:55</strong> 登機起飛</label></li>
+  </ul>
+</div><ul class="timeline"><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>睡飽 09:00~10:00 出門</span></div><h3 class="stop-title">退房並寄放行李</h3><p class="duration">飯店大廳退房</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">早上悠閒睡飽起床整理行李，辦理退房並將大件行李直接寄放在【都城市酒店】櫃檯，空手輕鬆出門！</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">省去拉行李的麻煩</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">行李寄放飯店櫃檯</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：京都站周邊吃飯 ＆ 最後採買</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%83%BD%E3%82%B7%E3%83%86%E3%82%A3+%E8%BF%91%E9%89%84%E4%BA%AC%E9%83%BD%E9%A7%85&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%83%BD%E3%82%B7%E3%83%86%E3%82%A3+%E8%BF%91%E9%89%84%E4%BA%AC%E9%83%BD%E9%A7%85&amp;destination=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>車站周邊悠閒漫遊</span></div><h3 class="stop-title">京都站周邊吃飯 ＆ 最後採買</h3><p class="duration">全站區室內連通步行</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">全程位於京都車站周邊【步行 1~3 分鐘圈內】：
 1. 【JR京都伊勢丹】B1/B2 伴手禮街採買茶之香、生八橋、辻利與各式名產。
 2. 【京都 Porta 地下街】逛服飾與特色美妝小舖。
 3. 【友都八喜 京都店】採購日本優質電器、保溫杯與扭蛋。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">京都站地下街 Porta 也很好逛</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">京都站伴手禮最後補齊</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：京都站景觀咖啡 / 散步</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;destination=%E4%BA%AC%E9%83%BD%E9%A7%85%E3%83%93%E3%83%AB&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=JR%E4%BA%AC%E9%83%BD%E9%A7%85&amp;destination=%E4%BA%AC%E9%83%BD%E9%A7%85%E3%83%93%E3%83%AB&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>午茶告別京都</span></div><h3 class="stop-title">京都站景觀咖啡 / 散步</h3><p class="duration">室內電梯直達</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">在車站內中村藤吉京都站店、茶寮都路里或伊勢丹高樓景觀咖啡館享用下午茶，登上大階段或空中徑道 (Skyway) 俯瞰京都市景與京都塔。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">輕鬆不慌忙</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">俯瞰京都塔與大階段</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：回飯店取行李 ＆ 往 KIX 移動</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%AC%E9%83%BD%E9%A7%85%E3%83%93%E3%83%AB&amp;destination=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E4%BA%AC%E9%83%BD%E9%A7%85%E3%83%93%E3%83%AB&amp;destination=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>15:30~16:00 取行李</span></div><h3 class="stop-title">回飯店取行李 ＆ 往 KIX 移動</h3><p class="duration">HARUKA 約 75~80 分鐘直達</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">回近鐵京都站都城市酒店取回大行李，走進 JR 京都站 30 號月台搭乘【特急 HARUKA】前往關西機場（建議搭乘約 16:00 班次，約 17:20 抵達機場）。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">HARUKA 車程約 75~80 分鐘</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">特急直達機場不用轉車</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：抵達關西機場第一/第二航廈</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;destination=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;destination=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>提早 2.5 小時抵達</span></div><h3 class="stop-title">抵達關西機場第一/第二航廈</h3><p class="duration">機場內步行與安檢</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">抵達關西機場後辦理航空櫃檯報到、託運行李、出境安檢與海關手續，隨後進入管制區免稅店 (Duty Free) 最後採購伴手禮與菸酒零食。</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">保留充裕出境檢查時間</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">留足安檢與免稅購物時間</p></div></details><div class="map-nav"><p class="map-nav-label">前往下一站：搭機返國 (19:55 起飛)</p><div class="map-nav-links"><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;destination=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;travelmode=transit" target="_blank" rel="noopener noreferrer">大眾運輸導航</a><a class="map-link map-link-alt" href="https://www.google.com/maps/dir/?api=1&amp;origin=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;destination=%E9%96%A2%E8%A5%BF%E5%9B%BD%E9%9A%9B%E7%A9%BA%E6%B8%AF&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">步行導航</a></div></div></article></li><li class="stop"><article class="card"><div class="time-row"><span class="clock">🕒</span><span>飛機起飛</span></div><h3 class="stop-title">搭機返國 (19:55 起飛)</h3><p class="duration">返航飛行</p><details class="stop-details"><summary>展開交通與備註</summary><div class="detail-block"><span class="detail-label">交通</span><p class="detail-text">前往指定登機門登機，搭乘 19:55 起飛班機平安返台，圓滿結束 7 天 6 夜京都精彩之旅！</p></div><div class="detail-block"><span class="detail-label">提醒</span><p class="detail-text">留足緩衝時間，圓滿結束京都之旅</p></div><div class="detail-block"><span class="detail-label">周邊</span><p class="detail-text">平安返抵家門</p></div></details></article></li></ul></section>
@@ -531,6 +674,14 @@ summary::-webkit-details-marker { display: none; }
     <h2>住宿情報</h2>
     <p>都城市酒店｜近鐵京都站</p>
     <p>隨時可逛：京都AVANTI、友都八喜、唐吉訶德</p>
+    <details class="offline-tips">
+      <summary>離線／沒訊號時</summary>
+      <div class="offline-tips-body">
+        <p>iPhone：用 Safari 開啟本頁 → 分享 →「加入主畫面」。</p>
+        <p>出發前建議長按「行程總覽」圖存到相簿；關鍵交通也可截圖備援。</p>
+        <p>地鐵內可能沒網；主畫面與截圖可當備援（天氣／地圖外連仍需網路）。</p>
+      </div>
+    </details>
     <p class="weather-credit">天氣資料：Open-Meteo（暫以本週同星期預覽，接近 12 月改回行程日）</p>
   </footer>
 </div>
@@ -644,6 +795,29 @@ summary::-webkit-details-marker { display: none; }
     });
   }).catch(function () {
     setAll('天氣暫時無法取得');
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.getElementById('return-checklist');
+  if (!root) return;
+  var key = 'kyoto-return-checklist-v1';
+  var boxes = Array.prototype.slice.call(root.querySelectorAll('input[type="checkbox"][data-check]'));
+  try {
+    var saved = JSON.parse(localStorage.getItem(key) || '[]');
+    boxes.forEach(function (box, i) {
+      box.checked = !!saved[i];
+    });
+  } catch (e) {}
+  boxes.forEach(function (box) {
+    box.addEventListener('change', function () {
+      try {
+        var state = boxes.map(function (b) { return !!b.checked; });
+        localStorage.setItem(key, JSON.stringify(state));
+      } catch (e) {}
+    });
   });
 })();
 </script>
