@@ -1,5 +1,5 @@
 /* Kyoto itinerary static cache */
-var CACHE = 'kyoto-static-v2';
+var CACHE = 'kyoto-static-v3';
 var ASSETS = [
   './',
   './index.html',
