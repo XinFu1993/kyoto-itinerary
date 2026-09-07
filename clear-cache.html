@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>清除京都行程快取</title>
+<style>
+  body { font-family: "Microsoft JhengHei", sans-serif; max-width: 420px; margin: 40px auto; padding: 0 16px; line-height: 1.6; }
+  button { display: block; width: 100%; min-height: 48px; margin: 12px 0; font-size: 1rem; }
+  #log { white-space: pre-wrap; background: #f4f1ea; padding: 12px; border-radius: 8px; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+  <h1>清除本站快取</h1>
+  <p>會解除 Service Worker，並刪除此網域的 Cache Storage。</p>
+  <button type="button" id="go">立即清除並回行程頁</button>
+  <div id="log">準備中…</div>
+<script>
+(async function () {
+  var log = document.getElementById('log');
+  function say(msg) { log.textContent += '\n' + msg; }
+
+  async function clearAll() {
+    log.textContent = '開始清除…';
+    if ('serviceWorker' in navigator) {
+      var regs = await navigator.serviceWorker.getRegistrations();
+      for (var i = 0; i < regs.length; i++) {
+        await regs[i].unregister();
+        say('已解除 SW: ' + (regs[i].scope || ''));
+      }
+      if (!regs.length) say('沒有已註冊的 Service Worker');
+    }
+    if (window.caches && caches.keys) {
+      var keys = await caches.keys();
+      for (var j = 0; j < keys.length; j++) {
+        await caches.delete(keys[j]);
+        say('已刪快取: ' + keys[j]);
+      }
+      if (!keys.length) say('沒有 Cache Storage');
+    }
+    say('完成。3 秒後回到行程頁…');
+    setTimeout(function () {
+      location.replace('./index.html?nocache=' + Date.now());
+    }, 3000);
+  }
+
+  document.getElementById('go').onclick = clearAll;
+  // auto-run once
+  clearAll();
+})();
+</script>
+</body>
+</html>
