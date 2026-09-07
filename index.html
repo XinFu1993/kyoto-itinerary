@@ -64,6 +64,33 @@ body {
   font-size: 0.86rem;
   color: var(--ink);
 }
+.ledger-entry {
+  margin: 12px 2px 0;
+  text-align: center;
+}
+.ledger-entry .ledger-note {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.ledger-entry .ledger-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  -webkit-tap-highlight-color: transparent;
+}
+.ledger-entry .ledger-btn:active {
+  transform: scale(0.98);
+}
 .overview-wrap {
   margin: 12px 2px 4px;
 }
@@ -425,6 +452,10 @@ summary::-webkit-details-marker { display: none; }
   <header class="header" id="app-header">
     <h1>京都 7天6夜自由行</h1>
     <p class="hotel">都城市酒店｜近鐵京都站</p>
+    <div class="ledger-entry">
+      <p class="ledger-note">團購／花費可用 DataBuilder 記錄</p>
+      <a class="ledger-btn" href="https://xinfu1993.github.io/ty-databuilder/" target="_blank" rel="noopener noreferrer">開啟記帳表</a>
+    </div>
     <div class="overview-wrap">
       <img class="overview-img" src="overview.png" alt="京都 7天6夜旅遊行程總覽" width="1200" height="1600">
     </div>
