@@ -64,6 +64,17 @@ body {
   font-size: 0.86rem;
   color: var(--ink);
 }
+.overview-wrap {
+  margin: 12px 2px 4px;
+}
+.overview-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+}
 #day-nav {
   position: sticky;
   top: 0;
@@ -414,6 +425,9 @@ summary::-webkit-details-marker { display: none; }
   <header class="header" id="app-header">
     <h1>京都 7天6夜自由行</h1>
     <p class="hotel">都城市酒店｜近鐵京都站</p>
+    <div class="overview-wrap">
+      <img class="overview-img" src="overview.png" alt="京都 7天6夜旅遊行程總覽" width="1200" height="1600">
+    </div>
   </header>
   <nav id="day-nav">
     <a class="day-btn" href="#day-1"><span class="dlabel">D1</span><span class="ddate">12/20</span></a><a class="day-btn" href="#day-2"><span class="dlabel">D2</span><span class="ddate">12/21</span></a><a class="day-btn" href="#day-3"><span class="dlabel">D3</span><span class="ddate">12/22</span></a><a class="day-btn" href="#day-4"><span class="dlabel">D4</span><span class="ddate">12/23</span></a><a class="day-btn" href="#day-5"><span class="dlabel">D5</span><span class="ddate">12/24</span></a><a class="day-btn" href="#day-6"><span class="dlabel">D6</span><span class="ddate">12/25</span></a><a class="day-btn" href="#day-7"><span class="dlabel">D7</span><span class="ddate">12/26</span></a>
