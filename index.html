@@ -178,12 +178,23 @@ body {
 }
 .day-weather {
   flex: 0 0 auto;
-  min-width: 72px;
-  max-width: 96px;
+  min-width: 76px;
+  max-width: 110px;
   text-align: right;
   color: var(--muted);
   font-size: 0.72rem;
   line-height: 1.35;
+}
+.day-weather-icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 0 0 2px auto;
+}
+.day-weather-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .day-weather-label {
   display: block;
@@ -535,6 +546,19 @@ summary::-webkit-details-marker { display: none; }
     });
   }
 
+  function weatherKind(code) {
+    var c = Number(code);
+    if (c === 0) return 'sun';
+    if (c === 1 || c === 2) return 'partly';
+    if (c === 3) return 'cloud';
+    if (c === 45 || c === 48) return 'fog';
+    if (c === 51 || c === 53 || c === 55 || c === 56 || c === 57) return 'drizzle';
+    if (c === 61 || c === 63 || c === 65 || c === 66 || c === 67 || c === 80 || c === 81 || c === 82) return 'rain';
+    if (c === 71 || c === 73 || c === 75 || c === 77 || c === 85 || c === 86) return 'snow';
+    if (c === 95 || c === 96 || c === 99) return 'storm';
+    return 'cloud';
+  }
+
   function weatherLabel(code) {
     var c = Number(code);
     if (c === 0) return '晴';
@@ -550,6 +574,31 @@ summary::-webkit-details-marker { display: none; }
     if (c === 85 || c === 86) return '陣雪';
     if (c === 95 || c === 96 || c === 99) return '雷雨';
     return '多變';
+  }
+
+  function weatherIcon(code) {
+    var kind = weatherKind(code);
+    var svg = '';
+    if (kind === 'sun') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6" fill="#e6a23c"/><g stroke="#e6a23c" stroke-width="2" stroke-linecap="round"><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.5 6.5l2.8 2.8M22.7 22.7l2.8 2.8M6.5 25.5l2.8-2.8M22.7 9.3l2.8-2.8"/></g></svg>';
+    } else if (kind === 'partly') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="12" r="5" fill="#e6a23c"/><path d="M12 22h11a5 5 0 0 0 .2-10 7 7 0 0 0-13.2 2.2A4.5 4.5 0 0 0 12 22z" fill="#9aa7b5"/></svg>';
+    } else if (kind === 'cloud') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 23h14a5.5 5.5 0 0 0 .3-11 8 8 0 0 0-15.4 2.8A5 5 0 0 0 10 23z" fill="#8b97a6"/></svg>';
+    } else if (kind === 'fog') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><g stroke="#8b97a6" stroke-width="2" stroke-linecap="round"><path d="M6 12h20M8 16h16M7 20h18M9 24h14"/></g></svg>';
+    } else if (kind === 'drizzle') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 16h13a4.5 4.5 0 0 0 .2-9 6.5 6.5 0 0 0-12.5 2A4 4 0 0 0 10 16z" fill="#8b97a6"/><g stroke="#5b8fb8" stroke-width="2" stroke-linecap="round"><path d="M12 19v3M16 20v3M20 19v3"/></g></svg>';
+    } else if (kind === 'rain') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 15h15a5 5 0 0 0 .2-10 7.5 7.5 0 0 0-14.5 2.5A4.5 4.5 0 0 0 9 15z" fill="#7f8c9a"/><g stroke="#3f78ad" stroke-width="2" stroke-linecap="round"><path d="M11 18v5M16 19v5M21 18v5"/></g></svg>';
+    } else if (kind === 'snow') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 15h15a5 5 0 0 0 .2-10 7.5 7.5 0 0 0-14.5 2.5A4.5 4.5 0 0 0 9 15z" fill="#9aa7b5"/><g fill="#6fa3c8"><circle cx="12" cy="21" r="1.4"/><circle cx="16.5" cy="23" r="1.4"/><circle cx="21" cy="21" r="1.4"/></g></svg>';
+    } else if (kind === 'storm') {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 14h15a5 5 0 0 0 .2-10 7.5 7.5 0 0 0-14.5 2.5A4.5 4.5 0 0 0 9 14z" fill="#6b7785"/><path d="M17 15l-4 7h3l-1 6 6-8h-3l2-5z" fill="#e6a23c"/></svg>';
+    } else {
+      svg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 23h14a5.5 5.5 0 0 0 .3-11 8 8 0 0 0-15.4 2.8A5 5 0 0 0 10 23z" fill="#8b97a6"/></svg>';
+    }
+    return '<span class="day-weather-icon">' + svg + '</span>';
   }
 
   var dates = boxes.map(function (el) { return el.getAttribute('data-date'); }).sort();
@@ -589,7 +638,8 @@ summary::-webkit-details-marker { display: none; }
       }
       var hi = Math.round(row.tmax);
       var lo = Math.round(row.tmin);
-      el.innerHTML = '<span class="day-weather-label">' + weatherLabel(row.code) + '</span>'
+      el.innerHTML = weatherIcon(row.code)
+        + '<span class="day-weather-label">' + weatherLabel(row.code) + '</span>'
         + '<span class="day-weather-temp">' + hi + '° / ' + lo + '°</span>';
     });
   }).catch(function () {
