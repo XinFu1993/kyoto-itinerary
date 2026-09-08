@@ -1,5 +1,5 @@
-/* Kyoto itinerary static cache */
-var CACHE = 'kyoto-static-v4';
+/* Kyoto itinerary — network-first so updates reach phones without manual clear */
+var CACHE = 'kyoto-static-v5';
 var ASSETS = [
   './',
   './index.html',
@@ -31,20 +31,28 @@ self.addEventListener('activate', function (event) {
   );
 });
 
+function isHtmlRequest(req, url) {
+  return req.mode === 'navigate'
+    || url.pathname.endsWith('/')
+    || url.pathname.endsWith('.html')
+    || url.pathname.endsWith('.js')
+    || url.pathname.endsWith('.webmanifest');
+}
+
 self.addEventListener('fetch', function (event) {
   var req = event.request;
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  var isHtml = req.mode === 'navigate' || (url.pathname.endsWith('/') || url.pathname.endsWith('.html'));
-
-  if (isHtml) {
-    // Prefer network so content updates are not stuck behind old cache
+  // HTML / JS / manifest: always try network first, cache for offline
+  if (isHtmlRequest(req, url)) {
     event.respondWith(
       fetch(req).then(function (res) {
-        var copy = res.clone();
-        caches.open(CACHE).then(function (cache) { cache.put(req, copy); });
+        if (res && res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (cache) { cache.put(req, copy); });
+        }
         return res;
       }).catch(function () {
         return caches.match(req).then(function (cached) {
@@ -55,14 +63,17 @@ self.addEventListener('fetch', function (event) {
     return;
   }
 
+  // Images: stale-while-revalidate (show cache, refresh in background)
   event.respondWith(
     caches.match(req).then(function (cached) {
-      if (cached) return cached;
-      return fetch(req).then(function (res) {
+      var network = fetch(req).then(function (res) {
+        if (res && res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (cache) { cache.put(req, copy); });
+        }
         return res;
-      }).catch(function () {
-        return caches.match(req);
-      });
+      }).catch(function () { return cached; });
+      return cached || network;
     })
   );
 });

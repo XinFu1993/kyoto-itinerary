@@ -941,9 +941,29 @@ html[data-theme="dark"] body {
   }
   if (fxInput) fxInput.addEventListener('input', renderFx);
 
-  /* SW */
+  /* SW: same URL always; content change + CACHE bump triggers update.
+     Auto-reload once when a new worker takes control — no manual clear. */
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js?v=4').catch(function () {});
+    var refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (refreshing) return;
+      refreshing = true;
+      location.reload();
+    });
+
+    navigator.serviceWorker.getRegistrations().then(function (regs) {
+      return Promise.all(regs.map(function (reg) {
+        var scripts = [reg.installing, reg.waiting, reg.active].filter(Boolean);
+        var versioned = scripts.some(function (w) {
+          return /sw\.js\?/.test(w.scriptURL || '');
+        });
+        return versioned ? reg.unregister() : Promise.resolve();
+      }));
+    }).then(function () {
+      return navigator.serviceWorker.register('./sw.js');
+    }).then(function (reg) {
+      if (reg && reg.update) reg.update();
+    }).catch(function () {});
   }
 })();
 </script>
