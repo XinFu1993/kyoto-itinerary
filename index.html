@@ -805,6 +805,7 @@ html[data-theme="dark"] body {
     <div class="fx-out" id="fx-out">輸入金額換算 TWD</div>
     <p class="fx-note" id="fx-note">載入匯率中…</p>
   </div>
+  <button type="button" class="fab-btn" id="fab-top" aria-label="回到最頂部">回到頂部</button>
   <button type="button" class="fab-btn" id="fab-fx">匯率換算</button>
 </div>
 
@@ -857,6 +858,14 @@ html[data-theme="dark"] body {
       card.classList.toggle('is-done', box.checked);
     });
   });
+
+  /* Back to top */
+  var topBtn = document.getElementById('fab-top');
+  if (topBtn) {
+    topBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /* FX */
   var fxBtn = document.getElementById('fab-fx');
