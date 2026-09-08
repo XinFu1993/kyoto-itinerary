@@ -116,7 +116,7 @@ body {
   -webkit-overflow-scrolling: touch;
   padding: 8px 2px 10px;
   margin: 0 -2px 12px;
-  background: rgba(247, 243, 234, 0.94);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
   border-bottom: 1px dashed var(--line);
   scrollbar-width: none;
 }
@@ -547,16 +547,14 @@ html[data-theme="dark"] body {
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .card.is-done {
   opacity: 0.55;
 }
 .card.is-done .stop-title {
   text-decoration: line-through;
-}
-.card.is-now {
-  outline: 2px solid var(--day-5);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--day-5) 25%, transparent);
 }
 .card-head {
   display: flex;
@@ -595,6 +593,8 @@ html[data-theme="dark"] body {
   font-weight: 700;
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .fx-panel {
   display: none;
@@ -806,35 +806,20 @@ html[data-theme="dark"] body {
     <p class="fx-note" id="fx-note">載入匯率中…</p>
   </div>
   <button type="button" class="fab-btn" id="fab-fx">¥→NT$</button>
-  <button type="button" class="fab-btn" id="fab-now">📍 目前進行中</button>
 </div>
 
 
 <script>
 (function () {
-  var TOKYO = 'Asia/Tokyo';
-
-  function tokyoParts(d) {
-    var fmt = new Intl.DateTimeFormat('en-CA', {
-      timeZone: TOKYO,
-      year: 'numeric', month: '2-digit', day: '2-digit',
-      hour: '2-digit', minute: '2-digit', hour12: false
-    });
-    var parts = {};
-    fmt.formatToParts(d).forEach(function (p) { parts[p.type] = p.value; });
-    return {
-      date: parts.year + '-' + parts.month + '-' + parts.day,
-      minutes: parseInt(parts.hour, 10) * 60 + parseInt(parts.minute, 10)
-    };
-  }
-
   /* Theme */
   var root = document.documentElement;
   var themeBtn = document.getElementById('theme-toggle');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
   function applyTheme(t) {
     root.setAttribute('data-theme', t);
     try { localStorage.setItem('kyoto-theme', t); } catch (e) {}
     if (themeBtn) themeBtn.textContent = t === 'dark' ? '亮色模式' : '暗色模式';
+    if (themeMeta) themeMeta.setAttribute('content', t === 'dark' ? '#1c1a17' : '#f7f3ea');
   }
   (function initTheme() {
     var saved = null;
@@ -873,49 +858,6 @@ html[data-theme="dark"] body {
     });
   });
 
-      } else {
-        window.prompt('複製以下文字', text);
-      }
-    });
-  });
-
-  /* Now & Next */
-  var nowBtn = document.getElementById('fab-now');
-  if (nowBtn) {
-    nowBtn.addEventListener('click', function () {
-      var now = tokyoParts(new Date());
-      var section = document.querySelector('.day-section[data-trip-date="' + now.date + '"]');
-      if (!section) {
-        var d1 = document.getElementById('day-1');
-        if (d1) d1.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        nowBtn.textContent = '📍 非行程日→D1';
-        setTimeout(function () { nowBtn.textContent = '📍 目前進行中'; }, 1600);
-        return;
-      }
-      var cards = Array.prototype.slice.call(section.querySelectorAll('.card[data-stop-id]'));
-      var timed = cards.filter(function (c) { return c.getAttribute('data-start'); }).map(function (c) {
-        var hm = c.getAttribute('data-start').split(':');
-        return { card: c, minutes: parseInt(hm[0], 10) * 60 + parseInt(hm[1], 10) };
-      }).sort(function (a, b) { return a.minutes - b.minutes; });
-      var target = null;
-      if (!timed.length) {
-        target = section.querySelector('.day-heading') || section;
-      } else {
-        var current = null;
-        for (var i = 0; i < timed.length; i++) {
-          if (timed[i].minutes <= now.minutes) current = timed[i];
-        }
-        target = (current || timed[0]).card;
-      }
-      document.querySelectorAll('.card.is-now').forEach(function (c) { c.classList.remove('is-now'); });
-      if (target && target.classList && target.classList.contains('card')) {
-        target.classList.add('is-now');
-        setTimeout(function () { target.classList.remove('is-now'); }, 1400);
-      }
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }
-
   /* FX */
   var fxBtn = document.getElementById('fab-fx');
   var fxPanel = document.getElementById('fx-panel');
@@ -924,10 +866,19 @@ html[data-theme="dark"] body {
   var fxNote = document.getElementById('fx-note');
   var fxRate = null;
   var FX_KEY = 'kyoto-fx-jpy-twd';
+  var FX_FALLBACK = 0.20;
   var FX_URLS = [
     'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/jpy.json',
-    'https://latest.currency-api.pages.dev/v1/currencies/jpy.json'
+    'https://latest.currency-api.pages.dev/v1/currencies/jpy.json',
+    'https://open.er-api.com/v6/latest/JPY'
   ];
+
+  function pickRate(data) {
+    if (!data) return null;
+    if (data.jpy && data.jpy.twd != null) return Number(data.jpy.twd);
+    if (data.rates && data.rates.TWD != null) return Number(data.rates.TWD);
+    return null;
+  }
 
   function renderFx() {
     if (!fxOut) return;
@@ -948,28 +899,32 @@ html[data-theme="dark"] body {
     fxOut.textContent = html;
   }
 
-  function setRate(r) {
+  function setRate(r, note) {
+    if (!isFinite(r) || r <= 0) return;
     fxRate = r;
     try { localStorage.setItem(FX_KEY, String(r)); } catch (e) {}
-    if (fxNote) fxNote.textContent = '參考匯率 1 JPY ≈ ' + r.toFixed(4) + ' TWD（公開 API，非銀行牌價）';
+    if (fxNote) {
+      fxNote.textContent = (note || ('參考匯率 1 JPY ≈ ' + r.toFixed(4) + ' TWD（公開 API，非銀行牌價）'));
+    }
     renderFx();
   }
 
   try {
     var cached = parseFloat(localStorage.getItem(FX_KEY), 10);
-    if (isFinite(cached) && cached > 0) setRate(cached);
+    if (isFinite(cached) && cached > 0) setRate(cached, '使用快取匯率 1 JPY ≈ ' + cached.toFixed(4) + ' TWD');
   } catch (e) {}
 
   function fetchFx(i) {
     if (i >= FX_URLS.length) {
-      if (fxNote) fxNote.textContent = '匯率暫時無法取得（仍可用快取）';
+      if (!fxRate) setRate(FX_FALLBACK, '使用備用估算 1 JPY ≈ ' + FX_FALLBACK.toFixed(4) + ' TWD（離線／API 失敗）');
+      else if (fxNote) fxNote.textContent = '線上匯率暫時無法更新（仍用快取）';
       return;
     }
-    fetch(FX_URLS[i]).then(function (res) {
+    fetch(FX_URLS[i], { cache: 'no-store' }).then(function (res) {
       if (!res.ok) throw new Error('bad');
       return res.json();
     }).then(function (data) {
-      var r = data && data.jpy && data.jpy.twd;
+      var r = pickRate(data);
       if (!r) throw new Error('no rate');
       setRate(Number(r));
     }).catch(function () { fetchFx(i + 1); });
@@ -979,13 +934,16 @@ html[data-theme="dark"] body {
   if (fxBtn && fxPanel) {
     fxBtn.addEventListener('click', function () {
       fxPanel.classList.toggle('open');
+      if (fxPanel.classList.contains('open') && fxInput) {
+        setTimeout(function () { fxInput.focus(); }, 50);
+      }
     });
   }
   if (fxInput) fxInput.addEventListener('input', renderFx);
 
   /* SW */
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js?v=3').catch(function () {});
+    navigator.serviceWorker.register('./sw.js?v=4').catch(function () {});
   }
 })();
 </script>
