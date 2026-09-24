@@ -47,7 +47,7 @@
 
 ```
 ├── index.html              # 主頁（行程＋樣式＋互動）
-├── overview.png            # 行程總覽圖
+├── overview.webp / overview.jpg  # 行程總覽圖（壓縮版）
 ├── manifest.webmanifest    # PWA 設定
 ├── sw.js                   # Service Worker（離線快取／自動更新）
 ├── icon-192.png / icon-512.png
