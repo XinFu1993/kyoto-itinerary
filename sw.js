@@ -1,12 +1,11 @@
 /* Kyoto itinerary — network-first so updates reach phones without manual clear */
-var CACHE = 'kyoto-static-v5';
+var CACHE = 'kyoto-static-v6';
+/* Do not precache overview images — avoids double-download on first visit */
 var ASSETS = [
   './',
   './index.html',
-  './overview.png',
   './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png'
+  './icon-192.png'
 ];
 
 self.addEventListener('install', function (event) {
