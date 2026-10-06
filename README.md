@@ -6,7 +6,7 @@
 
 ## 行程概要
 
-| 天數 | 日期 | 主題 |
+| 天數 | 日期（2026） | 主題 |
 |------|------|------|
 | Day 1 | 12/20（日） | 抵京都・河原町首日 |
 | Day 2 | 12/21（一） | 清水寺・祇園散步 |
@@ -17,14 +17,15 @@
 | Day 7 | 12/26（六） | 退房・返程關西機場 |
 
 - **住宿：** 都城市酒店｜近鐵京都站  
-- **出發／回程：** 關西國際機場（KIX）
+- **出發／回程：** 關西國際機場（KIX）  
+- **Day 1 河原町逛街：** 3COINS+plus → KIDDY LAND → Animate → FREAK'S STORE → DESCENDANT KYOTO → Choice
 
 ## 功能
 
 - **每日時間軸**：景點、建議時段、交通與備註
 - **Google Maps 導航**：站與站之間的大眾運輸／步行連結
 - **完成勾選**：進度存在瀏覽器（localStorage）
-- **京都天氣**：依 Open-Meteo 顯示當日概況（需網路）
+- **京都天氣**：依 Open-Meteo 顯示當日概況（需網路；接近行程日前為同星期預覽）
 - **匯率換算**：日幣 JPY → 台幣 TWD（公開 API，非銀行牌價）
 - **回到頂部**：右下角浮動按鈕，一鍵平滑捲回頁首
 - **暗色模式**：可手動切換並記住偏好
@@ -47,7 +48,9 @@
 
 ```
 ├── index.html              # 主頁（行程＋樣式＋互動）
-├── overview.webp / overview.jpg  # 行程總覽圖（壓縮版）
+├── overview.jpg            # 行程總覽圖（主要載入）
+├── overview.webp           # 總覽圖備援格式
+├── overview.png            # 舊快取相容備援
 ├── manifest.webmanifest    # PWA 設定
 ├── sw.js                   # Service Worker（離線快取／自動更新）
 ├── icon-192.png / icon-512.png
