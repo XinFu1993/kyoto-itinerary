@@ -18,7 +18,7 @@
 
 - **住宿：** 都城市酒店｜近鐵京都站  
 - **出發／回程：** 關西國際機場（KIX）  
-- **Day 1 河原町逛街：** 3COINS+plus → KIDDY LAND → Animate → FREAK'S STORE → DESCENDANT KYOTO → Choice
+- **Day 1 河原町逛街：** 3COINS+plus → KIDDY LAND → Animate → FREAK'S STORE → DESCENDANT KYOTO → Choice → WTAPS (W_Lab) Kyoto
 
 ## 功能
 
