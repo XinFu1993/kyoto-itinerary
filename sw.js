@@ -1,5 +1,5 @@
 /* Kyoto itinerary — network-first so updates reach phones without manual clear */
-var CACHE = 'kyoto-static-v32';
+var CACHE = 'kyoto-static-v33';
 /* Do not precache overview images — avoids double-download on first visit */
 var ASSETS = [
   './',
